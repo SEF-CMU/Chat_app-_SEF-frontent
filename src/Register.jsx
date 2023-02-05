@@ -14,12 +14,13 @@ export const Register = (props) => {
         const registered = {
             name: name,
             email: email,
+            phone: phone,
             password: pass,
             passwordConfirm: passConfirm
         }
 
         axios.post('http://127.0.0.1:5000/api/v1/users/signup', registered)
-        .then(response => console.log(response)).then(props.onFormSwitch('login'));
+        .then(response => console.log(response.data))
         
         
 
