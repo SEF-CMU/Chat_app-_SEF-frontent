@@ -18,7 +18,7 @@ export const Register = (props) => {
             password: pass,
             passwordConfirm: passConfirm
         }
-
+        // connect to api
         axios.post('http://127.0.0.1:5000/api/v1/users/signup', registered)
         .then(response => console.log(response.data))
         
