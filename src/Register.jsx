@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Register = (props) => {
   const [name, setName] = useState("");
@@ -7,6 +9,15 @@ export const Register = (props) => {
   const [pass, setPass] = useState("");
   const [phone, setPhone] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
+  const [error, setError] = useState("");
+
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,14 +28,60 @@ export const Register = (props) => {
       password: pass,
       passwordConfirm: passConfirm,
     };
-    // connect to api
-    axios
-      .post("http://127.0.0.1:5000/api/v1/users/signup", registered)
-      .then((response) => console.log(response.data))
-      .then(props.onFormSwitch("login"));
+  
+    if (handleValidation()) {
+         // connect to api
+          axios
+          .post("http://127.0.0.1:5000/api/v1/users/signup", registered)
+          .then((response) => {
+            console.log(response.data);
+            props.onFormSwitch("login");
+          }).catch((error) => {
+            setError(error);
+          });
+
+          // .then((response) => console.log(response.data))
+          // .then(props.onFormSwitch("login")).catch((error) => {
+          //   setError(error);
+          // });
+
+    };
+  };
+
+  const handleValidation = () => {
+
+    if (pass !== passConfirm) {
+      toast.error(
+        "Password and confirm password should be same.",
+        toastOptions
+      );
+      return false;
+    } else if (name.length < 2) {
+      toast.error(
+        "Name should be greater than 3 characters.",
+        toastOptions
+      );
+      return false;
+    } else if (pass.length < 2) {
+      toast.error(
+        "Password should be equal or greater than 8 characters.",
+        toastOptions
+      );
+      return false;
+    } else if (email === "") {
+      toast.error("Email is required.", toastOptions);
+      return false;
+    }
+    else if (phone.length<10) {
+      toast.error("Phone should be equal to 10 digits.", toastOptions);
+      return false;
+    }
+
+    return true;
   };
 
   return (
+    <>
     <div className="auth-form-container">
       <h2>Register</h2>
       <form className="register-form" onSubmit={handleSubmit}>
@@ -71,6 +128,7 @@ export const Register = (props) => {
           id="passwordConfirm"
           name="passwordConfirm"
         />
+        {error && <p className="error">{error.response.data}</p>}
         <button type="submit" className="sub-btn">
           Sign Up
         </button>
@@ -79,5 +137,8 @@ export const Register = (props) => {
         Already have an account? Login <font color="red">here</font>
       </button>
     </div>
+    <ToastContainer />
+  </>
   );
+  
 };
