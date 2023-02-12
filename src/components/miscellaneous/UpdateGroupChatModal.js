@@ -161,17 +161,6 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   };
 
   const handleRemove = async (user1) => {
-    if (selectedChat.groupAdmin._id !== user.id && user1._id !== user.id) {
-      toast({
-        title: "Only admins can remove someone!",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-      return;
-    }
-
     try {
       setLoading(true);
       const config = {
@@ -183,7 +172,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         `http://localhost:4000/api/v1/chats/groupremove`,
         {
           chatId: selectedChat._id,
-          userId: user1._id,
+          userId: user1.hasOwnProperty("id") ? user1.id : user1._id,
         },
         config
       );
@@ -230,7 +219,11 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                   key={u._id}
                   user={u}
                   admin={selectedChat.groupAdmin}
-                  handleFunction={() => handleRemove(u)}
+                  handleFunction={() =>
+                    selectedChat.groupAdmin._id !== user.id && u._id !== user.id
+                      ? handleRemove(u)
+                      : () => {}
+                  }
                 />
               ))}
             </Box>
