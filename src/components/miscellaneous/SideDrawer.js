@@ -139,6 +139,13 @@ function SideDrawer() {
         w="100%"
         p="5px 10px 5px 10px"
         borderWidth="5px"
+        style={{
+          color: "rgb(133, 23, 23)",
+          backgroundImage:
+            "linear-gradient(79deg, #fcfdfd, #cac9c3 48%, #feffff)",
+
+          backgroundColor: "white",
+        }}
       >
         <Flex justifyContent="space-between">
           <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
@@ -154,7 +161,7 @@ function SideDrawer() {
           </Text>
           <div>
             <Menu>
-              <MenuButton p={1}>
+              <MenuButton p={1} style={{ border: "none" }}>
                 <NotificationBadge
                   count={notification.length}
                   effect={Effect.SCALE}
@@ -193,10 +200,18 @@ function SideDrawer() {
               </MenuButton>
               <MenuList>
                 <ProfileModal user={user}>
-                  <MenuItem>My Profile</MenuItem>{" "}
+                  <MenuItem
+                    style={{
+                      border: "none",
+                    }}
+                  >
+                    My Profile
+                  </MenuItem>{" "}
                 </ProfileModal>
                 <MenuDivider />
-                <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+                <MenuItem style={{ border: "none" }} onClick={logoutHandler}>
+                  Logout
+                </MenuItem>
               </MenuList>
             </Menu>
           </div>
@@ -205,7 +220,12 @@ function SideDrawer() {
 
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent
+          style={{
+            color: "rgb(133, 23, 23)",
+            backgroundColor: "white",
+          }}
+        >
           <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
           <DrawerBody>
             <Box d="flex" pb={0}>
@@ -217,7 +237,7 @@ function SideDrawer() {
                   onChange={(e) => setSearch(e.target.value)}
                 />
                 <Button onClick={handleSearch}>
-                  <i class="fa-sharp fa-solid fa-magnifying-glass" color="black"></i>
+                  <i class="fas fa-arrow-right"></i>
                 </Button>
               </Flex>
             </Box>

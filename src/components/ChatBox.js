@@ -18,7 +18,13 @@ const Chatbox = ({ fetchAgain, setFetchAgain }) => {
       borderWidth="1px"
       style={{
         display: "flex",
-        minHeight: "85vh",
+        flexDirection: "column",
+        minHeight: "89vh",
+        color: "rgb(133, 23, 23)",
+        backgroundImage:
+          "linear-gradient(79deg, #fcfdfd, #cac9c3 48%, #feffff)",
+
+        backgroundColor: "white",
       }}
     >
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />

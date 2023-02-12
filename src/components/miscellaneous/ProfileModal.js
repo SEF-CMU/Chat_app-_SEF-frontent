@@ -26,7 +26,13 @@ const ProfileModal = ({ user, children }) => {
       )}
       <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
-        <ModalContent h="410px">
+        <ModalContent
+          h="410px"
+          style={{
+            color: "rgb(133, 23, 23)",
+            backgroundColor: "white",
+          }}
+        >
           <ModalHeader
             fontSize="40px"
             fontFamily="Work sans"
@@ -46,7 +52,7 @@ const ProfileModal = ({ user, children }) => {
               borderRadius="full"
               boxSize="150px"
               src={user.pic}
-              alt={user.name}
+              // alt={user.name}
             />
             <Text
               fontSize={{ base: "28px", md: "30px" }}

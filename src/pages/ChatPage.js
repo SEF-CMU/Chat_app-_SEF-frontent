@@ -9,7 +9,16 @@ const ChatPage = () => {
   const { user } = ChatState();
   const [fetchAgain, setFetchAgain] = useState(false);
   return (
-    <div style={{ width: "100%" }}>
+    <div
+      style={{
+        width: "100%",
+        color: "rgb(133, 23, 23)",
+        backgroundImage:
+          "linear-gradient(79deg, #fcfdfd, #cac9c3 48%, #feffff)",
+
+        backgroundColor: "white",
+      }}
+    >
       {user && <SideDrawer />}
 
       <Flex>

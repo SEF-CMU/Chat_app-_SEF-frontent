@@ -62,7 +62,12 @@ const MyChats = ({ fetchAgain }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
-        maxHeight: "85vh",
+        maxHeight: "89vh",
+        color: "rgb(133, 23, 23)",
+        backgroundImage:
+          "linear-gradient(79deg, #fcfdfd, #cac9c3 48%, #feffff)",
+
+        backgroundColor: "white",
       }}
     >
       <Box
@@ -98,7 +103,6 @@ const MyChats = ({ fetchAgain }) => {
         style={{
           display: "flex",
           flexDirection: "column",
-          
         }}
       >
         {chats ? (
