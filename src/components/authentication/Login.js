@@ -53,10 +53,10 @@ const Login = () => {
         isClosable: true,
         position: "bottom",
       });
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("token", data.token);
       setLoading(false);
       history.push("/chats");
-       window.location.reload();
+      window.location.reload();
     } catch (error) {
       toast({
         title: "Error Occured!",

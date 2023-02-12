@@ -22,7 +22,7 @@ export const Register = (props) => {
     theme: "dark",
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const registered = {
       name: name,
@@ -35,12 +35,12 @@ export const Register = (props) => {
     if (handleValidation()) {
       // connect to api
       try {
-        const { data } = axios.post(
+        const { data } = await axios.post(
           "http://127.0.0.1:4000/api/v1/users/signup",
           registered
         );
-
-        localStorage.setItem("userInfo", JSON.stringify(data));
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("id", data.id);
         history.push("/chats");
         window.location.reload();
       } catch (err) {

@@ -20,9 +20,9 @@ export const Login = (props) => {
         "http://127.0.0.1:4000/api/v1/users/login",
         loggedin
       );
-      console.log(data);
 
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("id", data.id);
       history.push("/chats");
       window.location.reload();
     } catch (err) {

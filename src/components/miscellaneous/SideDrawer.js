@@ -52,7 +52,7 @@ function SideDrawer() {
   const history = useHistory();
 
   const logoutHandler = () => {
-    localStorage.removeItem("userInfo");
+    localStorage.removeItem("token");
     history.push("/");
   };
 
@@ -97,8 +97,6 @@ function SideDrawer() {
   };
 
   const accessChat = async (userId) => {
-    console.log(userId);
-
     try {
       setLoadingChat(true);
       const config = {

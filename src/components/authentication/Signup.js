@@ -47,7 +47,7 @@ const Signup = () => {
         .then((res) => res.json())
         .then((data) => {
           setPic(data.url.toString());
-          console.log(data.url.toString());
+
           setLoading(false);
         })
         .catch((err) => {
@@ -90,7 +90,7 @@ const Signup = () => {
       });
       return;
     }
-    console.log(name, email, password, pic);
+
     try {
       const config = {
         headers: {
@@ -107,7 +107,7 @@ const Signup = () => {
         },
         config
       );
-      console.log(data);
+
       toast({
         title: "Registration Successful",
         status: "success",
@@ -115,7 +115,7 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("token", data.token);
       setLoading(false);
       history.push("/chats");
       window.location.reload();

@@ -13,7 +13,6 @@ const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
 
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
-  console.log(user);
 
   const toast = useToast();
 
@@ -43,7 +42,12 @@ const MyChats = ({ fetchAgain }) => {
   };
 
   useEffect(() => {
-    setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+    const id = localStorage.getItem("id");
+    const user = {
+      _id: id,
+    };
+
+    setLoggedUser(user);
     fetchChats();
     // eslint-disable-next-line
   }, [fetchAgain]);
