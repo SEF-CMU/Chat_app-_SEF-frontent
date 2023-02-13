@@ -12,17 +12,8 @@ export const Register = (props) => {
   const [pass, setPass] = useState("");
   const [phone, setPhone] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
-  const [error, setError] = useState("");
   const history = useHistory();
   const toast = useToast();
-
-  const toastOptions = {
-    position: "bottom-right",
-    autoClose: 8000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,43 +37,73 @@ export const Register = (props) => {
         history.push("/chats");
         window.location.reload();
       } catch (err) {
-        setError(err.response.data.message);
         toast({
           title: "Signup failed",
           description: err.response.data.message,
           status: "error",
           duration: 5000,
           isClosable: true,
-          position: "bottom-left",
+          position: "bottom-right",
         });
       }
     }
   };
 
   const handleValidation = () => {
-    if (pass !== passConfirm) {
-      toast.error(
-        "Password and confirm password should be same.",
-        toastOptions
-      );
-      return false;
-    } else if (name.length < 2) {
-      toast.error("Name should be greater than 3 characters.", toastOptions);
-      return false;
-    } else if (pass.length < 2) {
-      toast.error(
-        "Password should be equal or greater than 8 characters.",
-        toastOptions
-      );
-      return false;
-    } else if (email === "") {
-      toast.error("Email is required.", toastOptions);
-      return false;
-    } else if (phone.length < 10) {
-      toast.error("Phone should be equal to 10 digits.", toastOptions);
+    if (name===""||email===""||phone===""||pass===""||passConfirm==="") {
+      toast({
+        title: "Signup failed",
+        description: "Please fill all the fields.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
       return false;
     }
+    else if (pass !== passConfirm) {
+      toast({
+        title: "Signup failed",
+        description: "Password and confirm password should be same.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+      return false;
+    } else if (name.length < 3) {
+      
+      toast({
+        title: "Signup failed",
+        description: "Name should be greater than 3 characters.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+      return false;
+    } else if (pass.length <= 3) {
 
+      toast({
+        title: "Signup failed",
+        description: "Password should be equal or greater than 3 characters.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+      return false;
+    }  else if (phone.length < 10) {
+      toast({
+        title: "Signup failed",
+        description: "Phone should be equal to 10 digits.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+      return false;
+    }
     return true;
   };
 
@@ -154,7 +175,7 @@ export const Register = (props) => {
             id="passwordConfirm"
             name="passwordConfirm"
           />
-          {error && <p className="error">{error.response.data}</p>}
+          {/* {error && <p className="error">{error.response.data}</p>} */}
           <button type="submit" className="sub-btn">
             Sign Up
           </button>

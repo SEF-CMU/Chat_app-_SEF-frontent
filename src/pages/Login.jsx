@@ -34,7 +34,7 @@ export const Login = (props) => {
           status: "error",
           duration: 5000,
           isClosable: true,
-          position: "bottom-left",
+          position: "bottom-right",
         });
       }
     } catch (err) {
@@ -44,7 +44,7 @@ export const Login = (props) => {
         status: "error",
         duration: 5000,
         isClosable: true,
-        position: "bottom-left",
+        position: "bottom-right",
       });
       // setLoading(false);
     }
