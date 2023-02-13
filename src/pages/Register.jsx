@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useHistory } from "react-router";
 import { NavLink } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import { useToast } from "@chakra-ui/react";
 
 export const Register = (props) => {
   const [name, setName] = useState("");
@@ -13,6 +14,7 @@ export const Register = (props) => {
   const [passConfirm, setPassConfirm] = useState("");
   const [error, setError] = useState("");
   const history = useHistory();
+  const toast = useToast();
 
   const toastOptions = {
     position: "bottom-right",
@@ -44,7 +46,15 @@ export const Register = (props) => {
         history.push("/chats");
         window.location.reload();
       } catch (err) {
-        setError(error);
+        setError(err.response.data.message);
+        toast({
+          title: "Signup failed",
+          description: err.response.data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-left",
+        });
       }
     }
   };

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import { NavLink } from "react-router-dom";
-
+import { useToast } from "@chakra-ui/react";
 export const Login = (props) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const history = useHistory();
+  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,17 +17,36 @@ export const Login = (props) => {
     };
     try {
       // connect to api
-      const { data } = await axios.post(
-        "http://127.0.0.1:4000/api/v1/users/login",
-        loggedin
-      );
+      if (email !== "" || pass !== "") {
+        const { data } = await axios.post(
+          "http://127.0.0.1:4000/api/v1/users/login",
+          loggedin
+        );
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("id", data.id);
-      history.push("/chats");
-      window.location.reload();
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("id", data.id);
+        history.push("/chats");
+        window.location.reload();
+      } else {
+        toast({
+          title: "Login failed!",
+          description: "Empty username or password",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      }
     } catch (err) {
-      console.log(err);
+      toast({
+        title: "Login failed!",
+        description: "Incorrect username or password",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
+      // setLoading(false);
     }
   };
 
@@ -35,7 +55,6 @@ export const Login = (props) => {
       <div className="auth-form-container ">
         <h2>Login</h2>
         <form className="login-form" onSubmit={handleSubmit}>
-          {/* <label htmlFor="email">email</label> */}
           <input
             style={{
               margin: "10px 0",
@@ -48,7 +67,7 @@ export const Login = (props) => {
             id="email"
             name="email"
           />
-          {/* <label htmlFor="password">password</label> */}
+
           <input
             style={{
               margin: "10px 0",
